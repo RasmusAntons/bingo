@@ -385,6 +385,9 @@ public class BingoCommand {
                             .redirect(startCommand, CommandSourceStackExt.COPY_CONTEXT)
                         )
                     )
+                    .then(literal("--allow-never-goals-in-lockout")
+                        .redirect(startCommand, CommandSourceStackExt.COPY_CONTEXT)
+                    )
                     .then(literal("--require-client")
                         .redirect(startCommand, CommandSourceStackExt.COPY_CONTEXT)
                     )
@@ -421,6 +424,7 @@ public class BingoCommand {
         final boolean requireClient = hasNode(context, "--require-client");
         final boolean persistent = hasNode(context, "--persistent");
         final boolean continueAfterWin = hasNode(context, "--continue-after-win");
+        final boolean allowNeverGoalsInLockout = hasNode(context, "--allow-never-goals-in-lockout");
 
         final Set<PlayerTeam> teams = new LinkedHashSet<>();
         for (int i = 1; i <= 32; i++) {
@@ -484,6 +488,7 @@ public class BingoCommand {
                 gamemode::isGoalAllowed,
                 requiredGoals,
                 excludedTags,
+                allowNeverGoalsInLockout,
                 requireClient,
                 server.reloadableRegistries().lookup()
             );
