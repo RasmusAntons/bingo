@@ -308,5 +308,6 @@
   "bingo.board_corner.upper_left": "Верхний-левый",
   "bingo.board_corner.upper_right": "Верхний-правый",
   "bingo.board_corner.lower_left": "Нижний-левый",
-  "bingo.board_corner.lower_right": "Нижний-правый"
+  "bingo.board_corner.lower_right": "Нижний-правый",
+  "bingo.now_tracking": "сейчас отслеживаю %s"
 }

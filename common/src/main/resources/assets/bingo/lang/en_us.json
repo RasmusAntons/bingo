@@ -318,6 +318,7 @@
   "bingo.board_corner.upper_right": "Upper-right",
   "bingo.board_corner.lower_left": "Lower-left",
   "bingo.board_corner.lower_right": "Lower-right",
+  "bingo.now_tracking": "Now tracking %s",
 
   "bingo.ordinal.1": "first",
   "bingo.ordinal.2": "second",

@@ -20,10 +20,7 @@ import io.github.gaming32.bingo.data.BingoGoal;
 import io.github.gaming32.bingo.data.BingoTag;
 import io.github.gaming32.bingo.ext.CommandContextExt;
 import io.github.gaming32.bingo.ext.CommandSourceStackExt;
-import io.github.gaming32.bingo.game.ActiveGoal;
-import io.github.gaming32.bingo.game.BingoBoard;
-import io.github.gaming32.bingo.game.BingoGame;
-import io.github.gaming32.bingo.game.BingoGameMode;
+import io.github.gaming32.bingo.game.*;
 import io.github.gaming32.bingo.network.messages.s2c.RemoveBoardPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
@@ -412,6 +409,9 @@ public class BingoCommand {
                     .then(literal("--continue-after-win")
                         .redirect(startCommand, CommandSourceStackExt.COPY_CONTEXT)
                     )
+                    .then(literal("--player-tracker")
+                        .redirect(startCommand, CommandSourceStackExt.COPY_CONTEXT)
+                    )
                 )
             );
             CommandNode<CommandSourceStack> currentCommand = startCommand;
@@ -492,6 +492,9 @@ public class BingoCommand {
 
         final MinecraftServer server = context.getSource().getServer();
         final PlayerList playerList = server.getPlayerList();
+
+        PlayerTracker playerTracker = PlayerTracker.getInstance();
+        playerTracker.enabled = hasNode(context, "--player-tracker");
 
         final BingoBoard board;
         try {
