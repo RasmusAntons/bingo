@@ -351,7 +351,7 @@ public class BingoCommand {
                                 throw NO_GAME_RUNNING.create();
                             }
                             int time = IntegerArgumentType.getInteger(context, "time");
-                            Bingo.activeGame.setScheduledEndTime(System.currentTimeMillis() + (long) time * 1000 * 60);
+                            Bingo.activeGame.setScheduledEndTime(time > 0 ? System.currentTimeMillis() + (long) time * 1000 * 60 : time);
                             Bingo.activeGame.updateRemainingTime(context.getSource().getServer().getPlayerList());
                             return 1;
                         })
