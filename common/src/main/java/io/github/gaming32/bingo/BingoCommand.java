@@ -42,6 +42,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.OutgoingChatMessage;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -353,6 +354,7 @@ public class BingoCommand {
                     )
                 )
             )
+            .then(literal("run-tests").executes(BingoCommand::runTests))
         );
 
         {
@@ -562,5 +564,23 @@ public class BingoCommand {
             true
         );
         return players.size();
+    }
+
+    private static int runTests(CommandContext<CommandSourceStack> context) {
+        try {
+            BingoTest test = new BingoTest(context.getSource().getServer());
+            int n = test.runAll();
+            if (n > 0) {
+                context.getSource().sendSystemMessage(Component.literal(String.format("%d tests failed", n)));
+            } else {
+                context.getSource().sendSystemMessage(Component.literal("all tests succeeded"));
+            }
+            return Command.SINGLE_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            context.getSource().sendSystemMessage(Component.literal(e.toString()));
+            return -1;
+        }
+
     }
 }

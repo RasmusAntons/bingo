@@ -277,7 +277,7 @@ public class BingoBoard {
             }
             for (int i = 0; i < layout.length; ++i) {
                 for (int d = 0; d < cumDistribution.length; d++) {
-                    if ((i + 1) <= cumDistribution[d]) {
+                    if ((i + 1) <= cumDistribution[d] + 0.2) {
                         layout[i] = d;
                         break;
                     }
