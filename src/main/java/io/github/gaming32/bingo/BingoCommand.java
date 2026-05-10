@@ -203,7 +203,14 @@ public class BingoCommand {
                 })
             )
             .then(literal("reset")
-                .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
+                .requires(source -> {
+                    final var server = source.getServer();
+                    //noinspection ConstantValue
+                    if (server == null || ((MinecraftServerExt) server).bingo$getGame() != null) {
+                        return source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER);
+                    }
+                    return true;
+                })
                 .executes(BingoCommand::resetGame)
             )
             .then(literal("forfeit")
