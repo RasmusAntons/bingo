@@ -71,7 +71,7 @@ public class BingoEntityTypeTagProvider extends FabricTagsProvider.EntityTypeTag
         return entityType.getCategory() != MobCategory.MISC && entityType.getCategory().isFriendly();
     }
 
-    private static boolean canBeAgeLocked(Class<? extends Entity> entityClass) {
+    public static boolean canBeAgeLocked(Class<? extends Entity> entityClass) {
         Boolean cacheResult = CAN_BE_AGE_LOCKED_CACHE.get(entityClass);
         if (cacheResult != null) {
             return cacheResult;
